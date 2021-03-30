@@ -1,0 +1,20 @@
+{
+  "name": "f-st",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "bootstrap": "^4.6.0",
+    "bootstrap-icons": "^1.4.1",
+    "next": "^10.1.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "redis": "^3.0.2",
+    "sass": "^1.32.8",
+    "yup": "^0.32.9"
+  }
+}

@@ -1,0 +1,22 @@
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+
+// Default variable overrides
+// $body-bg: #222;
+// $body-color: #fff;
+$enable-rounded: true;
+
+@import "bootstrap/scss/utilities";
+
+@import "../node_modules/bootstrap/scss/root";
+@import "../node_modules/bootstrap/scss/reboot";
+@import "../node_modules/bootstrap/scss/type";
+@import "../node_modules/bootstrap/scss/buttons";
+@import "../node_modules/bootstrap/scss/input-group";
+@import "../node_modules/bootstrap/scss/button-group";
+@import "../node_modules/bootstrap/scss/grid";
+@import "../node_modules/bootstrap/scss/forms";
+@import "../node_modules/bootstrap/scss/card";
+@import "../node_modules/bootstrap/scss/alert";
+@import "../node_modules/bootstrap/scss/badge";
