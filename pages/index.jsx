@@ -92,10 +92,14 @@ export default function Home() {
                 className="alert alert-dark d-flex justify-content-between align-items-center"
                 role="alert"
               >
-                <span className="m-0">{link.redirect.substr(47) + "..."}</span>
+                <span className="m-0">
+                  {link.redirect.substr(0, 47) + "..."}
+                </span>
                 <div className="d-flex align-items-center">
                   <Link href={link.url}>
-                    <a className="alert-link mr-2">{link.url}</a>
+                    <a className="alert-link mr-2">
+                      {link.url.substr(link.url.length - 6)}
+                    </a>
                   </Link>
                   <button className="btn btn-secondary">Copy</button>
                 </div>
