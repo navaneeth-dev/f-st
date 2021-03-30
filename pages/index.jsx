@@ -4,7 +4,7 @@ import styles from "../styles/Home.module.scss";
 import Link from "next/link";
 
 export default function Home() {
-  const [url, setURL] = useState("https://google.com/");
+  const [url, setURL] = useState("");
   const [links, setLinks] = useState([]);
   const [loading, setLoading] = useState(false);
 

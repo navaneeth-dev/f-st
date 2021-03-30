@@ -8,7 +8,5 @@ services:
   next:
     build: .
     restart: always
-    environment:
-      - REDIS_HOST=db
     ports:
       - "3000:3000"
