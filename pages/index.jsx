@@ -21,13 +21,15 @@ export default function Home() {
       }),
     });
     const json = await result.json();
-    setLinks([
-      {
-        url: json.url,
-        redirect: json.redirect,
-      },
-      ...links,
-    ]);
+    if (json.status === "ok") {
+      setLinks([
+        {
+          url: json.url,
+          redirect: json.redirect,
+        },
+        ...links,
+      ]);
+    }
     setLoading(false);
   };
 
@@ -45,10 +47,11 @@ export default function Home() {
       </Head>
 
       <main className="container mt-3 p-0">
-        <h2>
-          F-ST <span className="badge badge-secondary">v0.1</span>
+        <h2 className="d-flex">
+          <a href="https://github.com/RizeXor/f-st">F-ST</a>
+          <span className="badge badge-secondary ml-2">v0.1</span>
         </h2>
-        <p className="lead">Generate shortened links, privately and securely</p>
+        <p className="lead">Worlds most trusted open source URL shortner</p>
         <form
           className="input-group input-group-lg mb-3"
           onSubmit={(e) => e.preventDefault()}
@@ -61,6 +64,10 @@ export default function Home() {
             aria-describedby="button-addon2"
             value={url}
             onChange={handleChange}
+            autoCapitalize="none"
+            autoCorrect="off"
+            autoFocus="on"
+            required="on"
           />
           <div className="input-group-append">
             <button

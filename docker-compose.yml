@@ -1,7 +1,14 @@
-version: "3.7"
+version: "3.9"
 services:
   db:
     image: redis
-    ports: 6379:6379
+    restart: always
+    ports:
+      - "6379:6379"
   next:
-    image:
+    build: .
+    restart: always
+    environment:
+      - REDIS_HOST=db
+    ports:
+      - "3000:3000"
