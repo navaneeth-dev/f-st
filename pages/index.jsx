@@ -7,6 +7,7 @@ export default function Home() {
   const [url, setURL] = useState("");
   const [links, setLinks] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [copiedIndex, setCopiedIndex] = useState(0);
 
   const handleGenerate = async () => {
     setLoading(true);
@@ -37,7 +38,9 @@ export default function Home() {
     setURL(event.target.value);
   };
 
-  const handleCopy = () => {};
+  const handleCopy = (link) => {
+    navigator.clipboard.writeText(link);
+  };
 
   return (
     <div className={styles.container}>
@@ -49,7 +52,7 @@ export default function Home() {
       <main className="container mt-3 p-0">
         <h2 className="d-flex">
           <a href="https://github.com/RizeXor/f-st">F-ST</a>
-          <span className="badge badge-secondary ml-2">v0.1</span>
+          <span className="badge badge-secondary ml-2">v0.2</span>
         </h2>
         <p className="lead">Worlds most trusted open source URL shortner</p>
         <form
@@ -77,7 +80,8 @@ export default function Home() {
               onClick={handleGenerate}
               disabled={loading}
             >
-              {loading ? "Generating..." : "Generate"}
+              {loading ? "Generating... " : "Generate "}
+              {!loading && <i class="bi bi-box-arrow-right"></i>}
             </button>
           </div>
         </form>
@@ -103,7 +107,13 @@ export default function Home() {
                       {link.url.substr(link.url.length - 6)}
                     </a>
                   </Link>
-                  <button className="btn btn-secondary">Copy</button>
+                  <button
+                    className="btn btn-secondary"
+                    onClick={() => handleCopy(link.url)}
+                  >
+                    <i class="bi bi-clipboard"></i>
+                    {" Copy"}
+                  </button>
                 </div>
               </div>
             </div>
