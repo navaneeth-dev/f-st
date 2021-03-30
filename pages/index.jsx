@@ -93,7 +93,9 @@ export default function Home() {
                 role="alert"
               >
                 <span className="m-0">
-                  {link.redirect.substr(0, 47) + "..."}
+                  {link.redirect.substr(0, 47) + link.redirect.length > 47
+                    ? "..."
+                    : ""}
                 </span>
                 <div className="d-flex align-items-center">
                   <Link href={link.url}>
