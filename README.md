@@ -7,5 +7,16 @@
 
 ## Getting Started
 
-1. Vercel
-2. docker-compose
+**Prerequisits**
+
+- Docker
+- docker-compose
+- Open port 80 and 443
+
+Edit `docker-compose.yml` to suite your needs.
+
+Run the app
+
+```
+docker-compose up -d
+```
