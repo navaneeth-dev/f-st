@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://f-st.pw">
+  <a href="https://f-st.ga/">
     <h1 align="center">F-ST</h1>
   </a>
   <p align="center">Open source URL shortner</p>
