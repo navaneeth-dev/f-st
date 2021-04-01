@@ -15,7 +15,7 @@ const generateRandomString = () => {
   const charList =
     "abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   let result = "";
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < process.env.URL_GENERATION_LENGTH; i++) {
     result += charList[Math.floor(Math.random() * charList.length)];
   }
   return result;

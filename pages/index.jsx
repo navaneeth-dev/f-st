@@ -52,7 +52,9 @@ export default function Home() {
       <main className="container mt-3 p-0">
         <h2 className="d-flex">
           <a href="https://github.com/RizeXor/f-st">F-ST</a>
-          <span className="badge badge-secondary ml-2">v0.2</span>
+          <span className="badge badge-secondary ml-2">
+            {process.env.NEXT_PUBLIC_APP_VERSION}
+          </span>
         </h2>
         <p className="lead">Worlds most trusted open source URL shortner</p>
         <form
@@ -81,7 +83,7 @@ export default function Home() {
               disabled={loading}
             >
               {loading ? "Generating... " : "Generate "}
-              {!loading && <i class="bi bi-box-arrow-right"></i>}
+              {!loading && <i className="bi bi-box-arrow-right"></i>}
             </button>
           </div>
         </form>
