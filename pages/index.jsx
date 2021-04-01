@@ -105,9 +105,7 @@ export default function Home() {
                 </span>
                 <div className="d-flex align-items-center">
                   <Link href={link.url}>
-                    <a className="alert-link mr-2">
-                      {link.url.substr(link.url.length - 6)}
-                    </a>
+                    <a className="alert-link mr-2">{link.url}</a>
                   </Link>
                   <button
                     className="btn btn-secondary"
