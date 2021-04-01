@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "../styles/Home.module.scss";
 import Link from "next/link";
 
@@ -7,11 +7,9 @@ export default function Home() {
   const [url, setURL] = useState("");
   const [links, setLinks] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [copiedIndex, setCopiedIndex] = useState(0);
 
   const handleGenerate = async () => {
     setLoading(true);
-    console.log("URL: " + url);
     const result = await fetch("/api/generate/", {
       headers: {
         "Content-Type": "application/json",
@@ -49,16 +47,18 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="container mt-3 p-0">
-        <h2 className="d-flex">
-          <a href="https://github.com/RizeXor/f-st">F-ST</a>
-          <span className="badge badge-secondary ml-2">
-            {process.env.NEXT_PUBLIC_APP_VERSION}
-          </span>
-        </h2>
-        <p className="lead">Worlds most trusted open source URL shortner</p>
+      <main className="container mt-3">
+        <div className="d-flex flex-column align-items-center">
+          <h2 className="d-flex">
+            <a href="https://github.com/RizeXor/f-st">F-ST</a>
+            <span className="badge badge-secondary ml-2">
+              {process.env.NEXT_PUBLIC_APP_VERSION}
+            </span>
+          </h2>
+          <p className="lead">Worlds most trusted open source URL shortner</p>
+        </div>
         <form
-          className="input-group input-group-lg mb-3"
+          className="input-group input-group mb-3"
           onSubmit={(e) => e.preventDefault()}
         >
           <input
@@ -89,29 +89,29 @@ export default function Home() {
         </form>
       </main>
 
-      <section className="container p-0">
+      <section className="container">
         <h2>Links</h2>
         <div className="row">
           {links.map((link) => (
             <div className="col-sm-12" key={link.url}>
               <div
-                className="alert alert-dark d-flex justify-content-between align-items-center"
+                className="alert alert-dark d-flex flex-column flex-lg-row justify-content-between align-items-center"
                 role="alert"
               >
-                <span className="m-0">
+                <span className="m-1 m-lg-0">
                   {`${link.redirect.substr(0, 47)}${
                     link.redirect.length > 47 ? "..." : ""
                   }`}
                 </span>
-                <div className="d-flex align-items-center">
+                <div className="d-flex flex-column flex-lg-row align-items-center">
                   <Link href={link.url}>
-                    <a className="alert-link mr-2">{link.url}</a>
+                    <a className="alert-link mr-0 mr-lg-2">{link.url}</a>
                   </Link>
                   <button
-                    className="btn btn-secondary"
+                    className="btn btn-secondary mt-1 mt-lg-0"
                     onClick={() => handleCopy(link.url)}
                   >
-                    <i class="bi bi-clipboard"></i>
+                    <i className="bi bi-clipboard"></i>
                     {" Copy"}
                   </button>
                 </div>
