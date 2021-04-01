@@ -55,7 +55,9 @@ export default function Home() {
               {process.env.NEXT_PUBLIC_APP_VERSION}
             </span>
           </h2>
-          <p className="lead">Worlds most trusted open source URL shortner</p>
+          <p className="lead text-center">
+            Worlds most trusted open source URL shortner
+          </p>
         </div>
         <form
           className="input-group input-group mb-3"
