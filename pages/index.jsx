@@ -4,7 +4,7 @@ import styles from "../styles/Home.module.scss";
 import Link from "next/link";
 
 export default function Home() {
-  const [url, setURL] = useState("");
+  const [long_url, setLongUrl] = useState("");
   const [links, setLinks] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -16,7 +16,7 @@ export default function Home() {
       },
       method: "POST",
       body: JSON.stringify({
-        url,
+        long_url,
       }),
     });
     const json = await result.json();
@@ -33,7 +33,7 @@ export default function Home() {
   };
 
   const handleChange = (event) => {
-    setURL(event.target.value);
+    setLongUrl(event.target.value);
   };
 
   const handleCopy = (link) => {
@@ -69,7 +69,7 @@ export default function Home() {
             placeholder="Enter URL"
             aria-label="Enter URL"
             aria-describedby="button-addon2"
-            value={url}
+            value={long_url}
             onChange={handleChange}
             autoCapitalize="none"
             autoCorrect="off"
