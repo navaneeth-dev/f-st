@@ -1,25 +1,11 @@
-import redis from "redis";
 import * as yup from "yup";
-import { promisify } from "util";
+import { generateRandomString } from "../../lib/link";
+import { client } from "../../lib/db";
+import faunadb from "faunadb";
 
-const client = redis.createClient(6379, process.env.REDIS_HOST);
-const setAsync = promisify(client.set).bind(client);
+const { Create, Collection } = faunadb.query;
 
 let schema = yup.string().url().required();
-
-client.on("error", function (error) {
-  throw error;
-});
-
-const generateRandomString = () => {
-  const charList =
-    "abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  let result = "";
-  for (let i = 0; i < process.env.URL_GENERATION_LENGTH; i++) {
-    result += charList[Math.floor(Math.random() * charList.length)];
-  }
-  return result;
-};
 
 export default async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -27,8 +13,8 @@ export default async (req, res) => {
   res.setHeader("Access-Control-Allow-Headers", "*");
 
   if (req.method === "POST") {
-    const redirect = req.body.url;
-    const isURLValid = await schema.isValid(redirect);
+    const { long_url } = req.body;
+    const isURLValid = await schema.isValid(long_url);
 
     if (!isURLValid) {
       res
@@ -37,12 +23,21 @@ export default async (req, res) => {
       return;
     }
 
-    const url = generateRandomString();
-    await setAsync(url, redirect);
+    const short_id = generateRandomString();
+    try {
+      await client.query(
+        Create(Collection("urls"), { data: { short_id, long_url } })
+      );
 
-    res.json({ url: `${process.env.API_ROOT}/${url}`, redirect, status: "ok" });
+      res.json({
+        short_url: `${process.env.API_ROOT}/${short_id}`,
+        long_url,
+        status: "ok",
+      });
+    } catch (e) {
+      res.status(500).json({ status: "error" });
+    }
   } else if (req.method === "OPTIONS") {
-    console.log("options");
     res.status(200).end();
   } else {
     res.status(405).end();

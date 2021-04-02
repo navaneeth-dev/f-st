@@ -5,7 +5,6 @@ export async function getServerSideProps(context) {
   const { id } = query;
 
   const location = await getLocation(id);
-  console.log("Location: " + location);
   if (!location) {
     return {
       props: {
