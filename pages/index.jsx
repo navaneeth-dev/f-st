@@ -10,7 +10,7 @@ export default function Home() {
 
   const handleGenerate = async () => {
     setLoading(true);
-    const result = await fetch("/api/generate/", {
+    const result = await fetch("/api/generate", {
       headers: {
         "Content-Type": "application/json",
       },

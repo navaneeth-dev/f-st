@@ -22,23 +22,28 @@ const generateRandomString = () => {
 };
 
 export default async (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "*");
+  res.setHeader("Access-Control-Allow-Headers", "*");
+
   if (req.method === "POST") {
     const redirect = req.body.url;
     const isURLValid = await schema.isValid(redirect);
-    console.log(isURLValid);
+
     if (!isURLValid) {
       res
         .status(400)
         .json({ status: "error", message: "Please enter a valid URL" });
       return;
     }
+
     const url = generateRandomString();
     await setAsync(url, redirect);
 
-    res
-      .status(200)
-      .json({ url: `${process.env.API_ROOT}/${url}`, redirect, status: "ok" });
-    return;
+    res.json({ url: `${process.env.API_ROOT}/${url}`, redirect, status: "ok" });
+  } else if (req.method === "OPTIONS") {
+    console.log("options");
+    res.status(200).end();
   } else {
     res.status(405).end();
   }
