@@ -9,21 +9,11 @@
 
 **Prerequisites**
 
-- Docker
-- docker-compose
-- Open port 80 and 443
-
-Edit `docker-compose.yml` to suite your needs (i.e:- domain name config for [Traefik](https://github.com/traefik/traefik)).
-
-Run the app:
-
-```
-docker-compose up -d
-```
+- [FaunaDB](https://dashboard.fauna.com/) API KEY
 
 ## Configuration
 
-For development edit `.env.development` and production edit `.env.production` for production. Avaiable options:
+For configuration edit `.env.local` or use environment variables.
 
 - `API_ROOT` Backend API Base URL (eg:- https://f-st.ga/jpIo4W)
-- `REDIS_HOST` Redis hostname (eg:- db for docker or IP)
+- `FAUNA_KEY` Fauna API KEY
