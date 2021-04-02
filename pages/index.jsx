@@ -21,10 +21,11 @@ export default function Home() {
     });
     const json = await result.json();
     if (json.status === "ok") {
+      const { short_url, long_url } = json;
       setLinks([
         {
-          url: json.url,
-          redirect: json.redirect,
+          short_url,
+          long_url,
         },
         ...links,
       ]);
@@ -101,17 +102,17 @@ export default function Home() {
                 role="alert"
               >
                 <span className="m-1 m-lg-0">
-                  {`${link.redirect.substr(0, 47)}${
-                    link.redirect.length > 47 ? "..." : ""
+                  {`${link.long_url.substr(0, 47)}${
+                    link.long_url.length > 47 ? "..." : ""
                   }`}
                 </span>
                 <div className="d-flex flex-column flex-lg-row align-items-center">
-                  <Link href={link.url}>
-                    <a className="alert-link mr-0 mr-lg-2">{link.url}</a>
+                  <Link href={link.short_url}>
+                    <a className="alert-link mr-0 mr-lg-2">{link.short_url}</a>
                   </Link>
                   <button
                     className="btn btn-secondary mt-1 mt-lg-0"
-                    onClick={() => handleCopy(link.url)}
+                    onClick={() => handleCopy(link.short_url)}
                   >
                     <i className="bi bi-clipboard"></i>
                     {" Copy"}
