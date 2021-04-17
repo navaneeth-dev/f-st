@@ -1,12 +1,14 @@
 import Head from "next/head";
 import React, { useEffect, useRef, useState } from "react";
-import styles from "../styles/Home.module.scss";
 import Link from "next/link";
+import Header from "../components/header";
+import Navbar from "../components/navbar";
 
-export default function Home() {
+const Home = () => {
   const [long_url, setLongUrl] = useState("");
   const [links, setLinks] = useState([]);
   const [loading, setLoading] = useState(false);
+  const ref = useRef(null);
 
   const handleGenerate = async () => {
     setLoading(true);
@@ -41,29 +43,22 @@ export default function Home() {
     navigator.clipboard.writeText(link);
   };
 
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.focus();
+    }
+  }, []);
+
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>F-ST</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <Navbar />
       <main className="container mt-3">
-        <div className="d-flex flex-column align-items-center">
-          <h2 className="d-flex">
-            <a href="https://github.com/RizeXor/f-st">F-ST</a>
-            <span className="badge badge-secondary ml-2">
-              {process.env.NEXT_PUBLIC_APP_VERSION}
-            </span>
-          </h2>
-          <p className="lead text-center">
-            Worlds most trusted open source URL shortner
-          </p>
-        </div>
-        <form
-          className="input-group input-group mb-3"
-          onSubmit={(e) => e.preventDefault()}
-        >
+        <Header />
+        <form className="input-group mb-3" onSubmit={(e) => e.preventDefault()}>
           <input
             type="url"
             className="form-control"
@@ -74,21 +69,19 @@ export default function Home() {
             onChange={handleChange}
             autoCapitalize="none"
             autoCorrect="off"
-            autoFocus="on"
             required="on"
+            ref={ref}
           />
-          <div className="input-group-append">
-            <button
-              className="btn btn-primary"
-              type="submit"
-              id="button-addon2"
-              onClick={handleGenerate}
-              disabled={loading}
-            >
-              {loading ? "Generating... " : "Generate "}
-              {!loading && <i className="bi bi-box-arrow-right"></i>}
-            </button>
-          </div>
+          <button
+            className="btn btn-primary"
+            type="submit"
+            id="button-addon2"
+            onClick={handleGenerate}
+            disabled={loading}
+          >
+            {loading ? "Generating... " : "Generate "}
+            {!loading && <i className="bi bi-box-arrow-right"></i>}
+          </button>
         </form>
       </main>
 
@@ -125,4 +118,6 @@ export default function Home() {
       </section>
     </div>
   );
-}
+};
+
+export default Home;

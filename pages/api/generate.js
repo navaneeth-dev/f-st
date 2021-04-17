@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { generateRandomString } from "../../lib/link";
+import { generateRandomString } from "../../lib/crypto";
 import { client } from "../../lib/db";
 import faunadb from "faunadb";
 
@@ -23,7 +23,7 @@ export default async (req, res) => {
       return;
     }
 
-    const short_id = generateRandomString();
+    const short_id = generateRandomString(process.env.URL_GENERATION_LENGTH);
     try {
       await client.query(
         Create(Collection("urls"), { data: { short_id, long_url } })
