@@ -3,7 +3,7 @@ import { client } from "../../lib/db";
 import faunadb from "faunadb";
 import * as yup from "yup";
 
-let schema = yup.string().required();
+let schema = yup.string().required().min(3);
 
 const { Create, Collection } = faunadb.query;
 
@@ -25,29 +25,27 @@ export default async (req, res) => {
   res.setHeader("Access-Control-Allow-Methods", "*");
   res.setHeader("Access-Control-Allow-Headers", "*");
 
-  if (req.method === "POST") {
-    const { content } = req.body;
+  try {
+    if (req.method === "POST") {
+      const { content } = req.body;
 
-    const valid = await schema.isValid(content);
-    if (!valid) {
-      res
-        .status(400)
-        .json({ status: "error", message: "Please enter a valid content" });
-      return;
+      await schema.validate(content);
+
+      const textID = await createText(content);
+      if (!textID) {
+        res
+          .status(500)
+          .json({ status: "error", message: "Failed to create text" });
+        return;
+      }
+
+      res.json({ long_url: `${process.env.API_ROOT}/${textID}` });
+    } else if (req.method === "OPTIONS") {
+      res.status(200).end();
+    } else {
+      res.status(405).end();
     }
-
-    const textID = await createText(content);
-    if (!textID) {
-      res
-        .status(500)
-        .json({ status: "error", message: "Failed to create text" });
-      return;
-    }
-
-    res.json({ long_url: `${process.env.API_ROOT}/${textID}` });
-  } else if (req.method === "OPTIONS") {
-    res.status(200).end();
-  } else {
-    res.status(405).end();
+  } catch (err) {
+    res.status(400).json({ status: "error", message: err.errors[0] });
   }
 };

@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useState } from "react";
 import Navbar from "../components/navbar";
+import TextShare from "../components/textshare";
 
 const Text = () => {
   const [content, setContent] = useState("");
@@ -24,10 +25,14 @@ const Text = () => {
         },
       });
       const json = await response.json();
+
+      if (json.status === "error") throw new Error(json.message);
+
       setShares([json, ...shares]);
-      setSubmitting(false);
     } catch (err) {
-      console.error(err);
+      console.error("Caught error: " + err);
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -81,17 +86,9 @@ const Text = () => {
           <div className="col-12">
             <h2>Shares</h2>
             <hr />
-            <div className="row g-3">
+            <div className="row">
               {shares.map((s) => (
-                <div className="col-12" key={s.long_url}>
-                  <div
-                    className="alert alert-dark d-flex flex-column flex-lg-row justify-content-between align-items-center"
-                    role="alert"
-                  >
-                    <a href={s.long_url}>{s.long_url}</a>
-                    <button className="btn btn-secondary">Copy</button>
-                  </div>
-                </div>
+                <TextShare long_url={s.long_url} key={s.long_url} />
               ))}
             </div>
           </div>
