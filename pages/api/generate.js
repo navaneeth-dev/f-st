@@ -29,6 +29,8 @@ export default async (req, res) => {
         Create(Collection("urls"), { data: { short_id, long_url } })
       );
 
+      console.log(short_id);
+
       res.json({
         short_url: `${process.env.API_ROOT}/${short_id}`,
         long_url,
