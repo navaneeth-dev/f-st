@@ -5,15 +5,15 @@
   <p align="center">Open source URL shortner</p>
 </p>
 
-## Getting Started
-
-**Prerequisites**
+## Prerequisites
 
 - [Fauna](https://fauna.com/)
 
-## Configuration
+## Getting Started
 
-For configuration edit `.env.local` or use environment variables.
+Rename `.env.example` to `.env.local` and values to the variables below.
 
-- `API_ROOT` Backend API Base URL (eg:- https://f-st.ga/jpIo4W)
-- `FAUNA_KEY` Fauna API KEY
+| KEY | VALUE |
+| --- | ----- |
+| `API_ROOT` | Domain name to prefix shortened IDs with. (Example: https://f-st.ga) |
+| `DB_KEY` | Fauna DB API key.
