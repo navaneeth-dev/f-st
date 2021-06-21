@@ -2,7 +2,7 @@ const Header = () => {
   return (
     <div className="d-flex flex-column align-items-center">
       <h2 className="d-flex">
-        <a href="https://github.com/RizeXor/f-st">F-ST</a>
+        <a href="https://github.com/Werew1942/f-st">F-ST</a>
         &nbsp;
         <span className="badge bg-secondary">
           {process.env.NEXT_PUBLIC_APP_VERSION}

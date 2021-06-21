@@ -35,6 +35,7 @@ export default async (req, res) => {
         status: "ok",
       });
     } catch (e) {
+      console.error(e);
       res.status(500).json({ status: "error" });
     }
   } else if (req.method === "OPTIONS") {
