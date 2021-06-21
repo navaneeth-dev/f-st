@@ -9,7 +9,7 @@
 
 **Prerequisites**
 
-- [FaunaDB](https://dashboard.fauna.com/) API KEY
+- [Fauna](https://fauna.com/)
 
 ## Configuration
 
